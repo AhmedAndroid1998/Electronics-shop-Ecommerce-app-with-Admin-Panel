@@ -1,3 +1,4 @@
+import 'package:electronics_store_e_commerce_with_admin_panel/pages/onboarding-screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,24 +12,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'E-shop with Admin Panel',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: MyHomePage()
+      home: OnboardingScreen(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(""),
-      ),
-      body: Text("Hello")
-    );
+        appBar: AppBar(
+          title: Text(""),
+        ),
+        body: Text("Hello"));
   }
 }
