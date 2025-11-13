@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 ///A utility class to keep styles in one place to DRY and make the code UI code
 ///easier to understand, and maintain
-class AppWidget {
+class MyStyles {
   static TextStyle boldTextFieldStyle() {
     return TextStyle(
       color: Colors.black,

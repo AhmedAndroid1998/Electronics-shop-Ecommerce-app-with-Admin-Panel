@@ -1,6 +1,8 @@
 import 'package:electronics_store_e_commerce_with_admin_panel/services/asset_helper.dart';
-import 'package:electronics_store_e_commerce_with_admin_panel/widgets/support_widget.dart';
+import 'package:electronics_store_e_commerce_with_admin_panel/shared/styles.dart';
 import 'package:flutter/material.dart';
+
+import '../shared/constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 234, 235, 231),
+      backgroundColor: HOME_PAGE_BACKGROUND_COLOR,
       body: Container(
         margin: EdgeInsets.only(top: 50, left: 20, right: 20),
         child: Column(
@@ -41,11 +43,11 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               'Hey, Ahmed',
-              style: AppWidget.boldTextFieldStyle(),
+              style: MyStyles.boldTextFieldStyle(),
             ),
             Text(
               'Good Morning',
-              style: AppWidget.lightTextFieldStyle(),
+              style: MyStyles.lightTextFieldStyle(),
             ),
           ],
         ),
@@ -73,7 +75,7 @@ class _HomePageState extends State<HomePage> {
         decoration: InputDecoration(
             border: InputBorder.none, //removes the underline border
             hintText: 'Search Products',
-            hintStyle: AppWidget.lightTextFieldStyle(),
+            hintStyle: MyStyles.lightTextFieldStyle(),
             prefixIcon: Icon(
               Icons.search,
               color: Colors.black,
@@ -91,11 +93,11 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               'Categories',
-              style: AppWidget.smallBoldTextFieldStyle(),
+              style: MyStyles.smallBoldTextFieldStyle(),
             ),
             Text(
               'All',
-              style: AppWidget.smallBoldTextFieldStyle()
+              style: MyStyles.smallBoldTextFieldStyle()
                   .copyWith(color: Colors.deepOrange),
             ),
           ],
@@ -112,8 +114,8 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.deepOrange, borderRadius: BorderRadius.circular(10)),
               child: Text(
                 'ALL',
-                style: AppWidget.smallBoldTextFieldStyle()
-                    .copyWith(color: Colors.white),
+                style:
+                    MyStyles.smallBoldTextFieldStyle().copyWith(color: Colors.white),
               ),
             ),
             Expanded(
@@ -168,11 +170,11 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               'All Products',
-              style: AppWidget.smallBoldTextFieldStyle(),
+              style: MyStyles.smallBoldTextFieldStyle(),
             ),
             Text(
               'See All',
-              style: AppWidget.smallBoldTextFieldStyle()
+              style: MyStyles.smallBoldTextFieldStyle()
                   .copyWith(color: Colors.deepOrange),
             ),
           ],
@@ -212,7 +214,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Text(
             imageName.split('/').last.split('_').first,
-            style: AppWidget.smallBoldTextFieldStyle(),
+            style: MyStyles.smallBoldTextFieldStyle(),
           ),
           SizedBox(height: 10),
           Row(
@@ -220,7 +222,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Text(
                 '\$100',
-                style: AppWidget.smallBoldTextFieldStyle()
+                style: MyStyles.smallBoldTextFieldStyle()
                     .copyWith(color: Colors.deepOrange),
               ),
               SizedBox(width: 20),
