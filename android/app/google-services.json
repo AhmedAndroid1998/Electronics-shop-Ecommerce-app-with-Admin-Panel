@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "641468221674",
+    "project_id": "e-commerce-with-admin-pa-2cee2",
+    "storage_bucket": "e-commerce-with-admin-pa-2cee2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641468221674:android:70565c4c47645ea667af93",
+        "android_client_info": {
+          "package_name": "com.example.electronics_store_e_commerce_with_admin_panel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7QQYmPrIfnnKBvfK5v43JtugBkCb-ZTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
