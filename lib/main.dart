@@ -1,4 +1,4 @@
-import 'package:electronics_store_e_commerce_with_admin_panel/pages/login_screen.dart';
+import 'package:electronics_store_e_commerce_with_admin_panel/pages/auth_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

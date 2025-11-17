@@ -52,6 +52,12 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        multiDexEnabled true /* Multidex support is required for your android app to
+        build since the number of methods has exceeded 64k. This happens because adding
+        Firebase (Auth, Firestore, Storage, Messaging…) increases the method count
+        beyond the 64K limit.
+        */
     }
 
     buildTypes {
