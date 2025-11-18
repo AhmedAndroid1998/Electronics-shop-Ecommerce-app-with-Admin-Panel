@@ -1,4 +1,6 @@
 import 'package:electronics_store_e_commerce_with_admin_panel/pages/auth_screen.dart';
+import 'package:electronics_store_e_commerce_with_admin_panel/pages/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +27,17 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       // home: BottomNavScreen(),
-      home: AuthScreen(),
+      home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData) {
+              return HomeScreen(); // user is logged in
+            } else {
+              return AuthScreen();
+            }
+          }),
     );
   }
 }

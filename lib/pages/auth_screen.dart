@@ -218,7 +218,7 @@ class _AuthScreenState extends State<AuthScreen> {
       if (widget.isSignUp) {
         final name = nameController.text.trim();
         final email = emailController.text.trim();
-        final password = emailController.text;
+        final password = passwordController.text;
         final credential =
             await authService.signUp(name: name, email: email, password: password);
 
