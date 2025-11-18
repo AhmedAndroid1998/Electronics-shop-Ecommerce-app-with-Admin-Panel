@@ -8,14 +8,14 @@ import '../shared/constants.dart';
 import 'orders_page.dart';
 import 'profile_page.dart';
 
-class BottomNavScreen extends StatefulWidget {
-  const BottomNavScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<BottomNavScreen> createState() => _BottomNavScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _BottomNavScreenState extends State<BottomNavScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [HomePage(), OrdersPage(), ProfilePage()];
   final List<String> _pagesTitles = ["Home Page", "Orders", "Profile"];
 

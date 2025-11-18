@@ -1,5 +1,6 @@
-import 'package:electronics_store_e_commerce_with_admin_panel/pages/bottom_nav_screen.dart';
+import 'package:electronics_store_e_commerce_with_admin_panel/pages/home_screen.dart';
 import 'package:electronics_store_e_commerce_with_admin_panel/services/firebase_auth_service.dart';
+import 'package:electronics_store_e_commerce_with_admin_panel/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -215,15 +216,20 @@ class _AuthScreenState extends State<AuthScreen> {
     final authService = AuthService();
     try {
       if (widget.isSignUp) {
-        await authService.signUp(
-            name: nameController.text.trim(),
-            email: emailController.text.trim(),
-            password: passwordController.text);
+        final name = nameController.text.trim();
+        final email = emailController.text.trim();
+        final password = emailController.text;
+        final credential =
+            await authService.signUp(name: name, email: email, password: password);
 
         //To prevent the warning error from the showSnackBar(): "Don't use 'BuildContext's across async gaps"
         if (!mounted) return;
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('Signing up...')));
+
+        //Add this user to our firestore db
+        await FirestoreService()
+            .createUserProfile(uid: credential!.user!.uid, name: name, email: email);
       } else {
         await authService.login(
             email: emailController.text.trim(), password: passwordController.text);
@@ -233,6 +239,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .showSnackBar(SnackBar(content: Text('Logging in...')));
       }
 
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Welcome, ${nameController.text}!'),
@@ -242,7 +249,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
       //Navigate to home screen
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.toString())),
