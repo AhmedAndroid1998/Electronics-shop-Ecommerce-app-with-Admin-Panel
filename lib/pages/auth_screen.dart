@@ -1,3 +1,5 @@
+import 'package:electronics_store_e_commerce_with_admin_panel/pages/bottom_nav_screen.dart';
+import 'package:electronics_store_e_commerce_with_admin_panel/services/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -51,6 +53,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   ],
                   _buildInputField(
                     label: 'Email',
+                    keyboardType: TextInputType.emailAddress,
                     controller: emailController,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
@@ -133,11 +136,13 @@ class _AuthScreenState extends State<AuthScreen> {
 
   Widget _buildInputField({
     required String label,
+    TextInputType? keyboardType,
     required TextEditingController controller,
     bool obscureText = false,
     String? Function(String?)? validator,
   }) {
     return TextFormField(
+      keyboardType: keyboardType,
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
@@ -165,13 +170,8 @@ class _AuthScreenState extends State<AuthScreen> {
       widthFactor: 0.5,
       child: ElevatedButton(
         onPressed: () {
-          //check that the input is authenticated
-          final isValid = _formKey.currentState?.validate() ?? false;
-          if (isValid) {
-            // Proceed with login or signup logic
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(widget.isSignUp ? 'Signing up...' : 'Logging in...')));
-          }
+          //validate user input & authenticate to firebase
+          _authenticate();
         },
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -203,5 +203,50 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       ],
     );
+  }
+
+  ///check if user input is valid & if so, authenticate(login/signup) to firebase
+  void _authenticate() async {
+    //check that the input is authenticated
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) return;
+
+    // Proceed with login or signup logic
+    final authService = AuthService();
+    try {
+      if (widget.isSignUp) {
+        await authService.signUp(
+            name: nameController.text.trim(),
+            email: emailController.text.trim(),
+            password: passwordController.text);
+
+        //To prevent the warning error from the showSnackBar(): "Don't use 'BuildContext's across async gaps"
+        if (!mounted) return;
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Signing up...')));
+      } else {
+        await authService.login(
+            email: emailController.text.trim(), password: passwordController.text);
+
+        if (!mounted) return;
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Logging in...')));
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Welcome, ${nameController.text}!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      //Navigate to home screen
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
   }
 }

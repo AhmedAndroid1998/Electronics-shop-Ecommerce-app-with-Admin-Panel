@@ -1,5 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:electronics_store_e_commerce_with_admin_panel/pages/auth_screen.dart';
 import 'package:electronics_store_e_commerce_with_admin_panel/pages/home_page.dart';
+import 'package:electronics_store_e_commerce_with_admin_panel/services/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/constants.dart';
@@ -23,6 +25,23 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pagesTitles[_currentTabIndex]),
+        actions: [
+          PopupMenuButton<int>(
+            onSelected: (int value) {
+              if (value == 1) {
+                AuthService().signOut().then(
+                      (value) => Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => AuthScreen())),
+                    );
+              }
+            },
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(value: 1, child: const Text('signOut')),
+              ];
+            },
+          )
+        ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
         height: 60,
