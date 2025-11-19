@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -21,6 +23,42 @@ class FirestoreService {
       );
     } catch (e) {
       throw Exception('Failed to save user profile due to the error: $e');
+    }
+  }
+
+  Future<bool> loginAdmin(
+      {required String username, required String password}) async {
+    try {
+      /*
+      The reason for chaining  where() twice below is the following:
+        Firestore does not support compound value comparisons inside
+        a single where() call. So,  You cannot write:
+          .where("username == 'abc' AND password == '123'")
+        Firestore requires one condition per field, so your query must be:
+       */
+      final query = await _firestore
+          .collection('admin')
+          .where('username', isEqualTo: username)
+          .where('password', isEqualTo: password)
+          .get();
+      if (query.docs.isNotEmpty) {
+        return true;
+      }
+
+      Fluttertoast.showToast(
+        msg: 'Incorrect username or password',
+        backgroundColor: Colors.redAccent,
+        textColor: Colors.white,
+      );
+
+      return false;
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: 'Error: $e',
+        backgroundColor: Colors.redAccent,
+        textColor: Colors.white,
+      );
+      return false;
     }
   }
 }

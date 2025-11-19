@@ -1,3 +1,4 @@
+import 'package:electronics_store_e_commerce_with_admin_panel/pages/admin/admin_login_screen.dart';
 import 'package:electronics_store_e_commerce_with_admin_panel/pages/home_screen.dart';
 import 'package:electronics_store_e_commerce_with_admin_panel/services/firebase_auth_service.dart';
 import 'package:electronics_store_e_commerce_with_admin_panel/services/firestore_service.dart';
@@ -186,21 +187,39 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Widget _buildTogglePrompt(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        Text(
-            widget.isSignUp ? 'Already have an account?' : "Don't have an account?"),
-        TextButton(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(widget.isSignUp
+                ? 'Already have an account?'
+                : "Don't have an account?"),
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => AuthScreen(isSignUp: !widget.isSignUp),
+                  ),
+                );
+              },
+              child: Text(widget.isSignUp ? 'Sign In' : 'Sign Up'),
+            ),
+          ],
+        ),
+        SizedBox(height: 20),
+        OutlinedButton(
+          style: TextButton.styleFrom(),
           onPressed: () {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (_) => AuthScreen(isSignUp: !widget.isSignUp),
+                builder: (_) => AdminLoginScreen(),
               ),
             );
           },
-          child: Text(widget.isSignUp ? 'Sign In' : 'Sign Up'),
+          child: Text('Admin Login'),
         ),
       ],
     );
