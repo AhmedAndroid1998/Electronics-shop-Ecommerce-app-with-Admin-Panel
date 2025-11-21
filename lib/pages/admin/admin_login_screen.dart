@@ -145,8 +145,7 @@ class AdminLoginScreen extends StatelessWidget {
     final password = passwordController.text;
 
     print('Iam here ✅✅✅✅✅');
-    await FirestoreService()
-        .loginAdmin(username: username, password: password)
+    await FirestoreService.loginAdmin(username: username, password: password)
         .then((value) {
       if (value) {
         print('Iam here here ✅✅✅✅✅✅✅✅✅');

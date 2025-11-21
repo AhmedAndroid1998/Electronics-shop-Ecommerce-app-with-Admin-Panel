@@ -247,8 +247,8 @@ class _AuthScreenState extends State<AuthScreen> {
             .showSnackBar(SnackBar(content: Text('Signing up...')));
 
         //Add this user to our firestore db
-        await FirestoreService()
-            .createUserProfile(uid: credential!.user!.uid, name: name, email: email);
+        await FirestoreService.createUserProfile(
+            uid: credential!.user!.uid, name: name, email: email);
       } else {
         await authService.login(
             email: emailController.text.trim(), password: passwordController.text);

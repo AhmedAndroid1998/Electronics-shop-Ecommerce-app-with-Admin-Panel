@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class FirestoreService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> createUserProfile(
+  static Future<void> createUserProfile(
       {required String uid,
       required String name,
       required String email,
@@ -26,7 +26,7 @@ class FirestoreService {
     }
   }
 
-  Future<bool> loginAdmin(
+  static Future<bool> loginAdmin(
       {required String username, required String password}) async {
     try {
       /*
@@ -59,6 +59,29 @@ class FirestoreService {
         textColor: Colors.white,
       );
       return false;
+    }
+  }
+
+  static Future<void> addProduct({
+    required String category,
+    required String productName,
+    required String imageUrl,
+    String? productDetails,
+    required double price,
+  }) async {
+    try {
+      await _firestore.collection(category).add(
+        {
+          'category': category,
+          'name': productName,
+          'imageUrl': imageUrl,
+          'details': productDetails,
+          'price': price,
+          'addedOn': FieldValue.serverTimestamp(),
+        },
+      );
+    } catch (e) {
+      throw Exception('Failed to save user profile due to the error: $e');
     }
   }
 }
