@@ -6,7 +6,21 @@ class AdminHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Text('Admin Home Screen'),
+      appBar: AppBar(title: const Text('Admin Home Screen')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              child: const Text('Add a Product'),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => AdminHomeScreen()));
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 }

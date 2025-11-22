@@ -1,8 +1,8 @@
-import 'package:electronics_store_e_commerce_with_admin_panel/pages/admin/add_product.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
+import 'pages/splash_wrapper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,9 +24,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      // home: BottomNavScreen(),
-      // home: SplashWrapper(),
-      home: AddProductScreen(),
+      home: SplashWrapper(),
+      // home: AddProductScreen(),
     );
   }
 }
