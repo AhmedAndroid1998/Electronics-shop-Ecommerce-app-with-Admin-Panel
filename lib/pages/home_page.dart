@@ -3,6 +3,7 @@ import 'package:electronics_store_e_commerce_with_admin_panel/shared/styles.dart
 import 'package:flutter/material.dart';
 
 import '../shared/constants.dart';
+import '../widgets/category_list_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: HOME_PAGE_BACKGROUND_COLOR,
       body: Container(
-        margin: EdgeInsets.only(top: 50, left: 20, right: 20),
+        margin: EdgeInsets.only(top: 10, left: 20, right: 20),
         child: Column(
           children: [
             _buildHeader(),
@@ -85,6 +86,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildCategoriesSection() {
+    final categories = ["Tablet", 'Phone', 'Watch', 'Monitor'];
     final categoriesDummyImages = AssetHelper.getDummyCategoryImages(4);
     return Column(
       children: [
@@ -120,13 +122,15 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: SizedBox(
-                height: 100,
+                height: 120,
                 child: ListView.builder(
                   itemCount: categoriesDummyImages.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return _buildCategoryListTile(categoriesDummyImages[index]);
+                    return CategoryListTile(
+                        imageName: categoriesDummyImages[index],
+                        category: categories[index]);
                   },
                 ),
               ),
@@ -134,30 +138,6 @@ class _HomePageState extends State<HomePage> {
           ],
         )
       ],
-    );
-  }
-
-  Widget _buildCategoryListTile(String imageName) {
-    return Container(
-      width: 90,
-      height: 90,
-      alignment: Alignment.center,
-      margin: EdgeInsets.only(right: 15),
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            imageName,
-            height: 70,
-            width: 70,
-            fit: BoxFit.cover,
-          ),
-          Icon(Icons.arrow_forward)
-        ],
-      ),
     );
   }
 

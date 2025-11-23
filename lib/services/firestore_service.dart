@@ -84,4 +84,14 @@ class FirestoreService {
       throw Exception('Failed to save user profile due to the error: $e');
     }
   }
+
+  /// Stream of products collection
+  static Stream<QuerySnapshot> getProducts(String category) {
+    return _firestore.collection(category).snapshots();
+  }
+
+  /// Optional: fetch products once (not real-time)
+  static Future<QuerySnapshot> getProductsOnce(String category) async {
+    return await _firestore.collection(category).get();
+  }
 }

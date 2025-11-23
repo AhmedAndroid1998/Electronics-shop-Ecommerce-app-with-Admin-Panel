@@ -7,12 +7,10 @@ Widget CircledBackButton(BuildContext context) {
       Navigator.pop(context);
     },
     child: Container(
-      margin: EdgeInsets.only(left: 20),
+      margin: EdgeInsets.only(left: 10, top: 10),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        border: Border.all(),
-        shape: BoxShape.circle,
-      ),
+          border: Border.all(), shape: BoxShape.circle, color: Colors.white),
       child: Icon(Icons.arrow_back_ios_new_outlined),
     ),
   );

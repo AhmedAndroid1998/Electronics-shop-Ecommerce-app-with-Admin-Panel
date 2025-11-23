@@ -13,13 +13,7 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  final List<String> categories = [
-    'Laptop',
-    'Phone',
-    'Tablet',
-    'Monitor',
-    'Accessory',
-  ];
+  final List<String> categories = ['Laptop', 'Phone', 'Tablet', 'Watch', 'Monitor'];
 
   String selectedCategory = '';
 

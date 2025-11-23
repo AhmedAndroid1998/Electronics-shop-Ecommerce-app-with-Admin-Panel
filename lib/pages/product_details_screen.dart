@@ -5,7 +5,16 @@ import '../shared/constants.dart';
 import '../shared/styles.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  final String name;
+  final num price;
+  final String details;
+  final String imageUrl;
+  const ProductDetailsScreen(
+      {super.key,
+      required this.name,
+      required this.price,
+      required this.details,
+      required this.imageUrl});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -21,12 +30,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircledBackButton(context),
-            Image.asset(
-              'assets/images/headphones.jpg',
-              width: double.infinity,
-              height: 400,
-              fit: BoxFit.fitWidth,
+            Stack(
+              children: [
+                Image.network(
+                  widget.imageUrl,
+                  width: double.infinity,
+                  height: 400,
+                  fit: BoxFit.fitWidth,
+                ),
+                CircledBackButton(context),
+              ],
             ),
             Expanded(
               child: Container(
@@ -44,7 +57,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildHeader("Headphone", 300),
+                        _buildHeader(widget.name, widget.price),
                         SizedBox(height: 20),
                         Text(
                           "Details",
@@ -52,8 +65,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'This product is very good. It has 1 year warranty, these '
-                          'They have a fashionable design',
+                          widget.details,
                           style: TextStyle(color: Colors.black45),
                         ),
                       ],
@@ -69,7 +81,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Widget _buildHeader(String productName, double price) {
+  Widget _buildHeader(String productName, num price) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
